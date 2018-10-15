@@ -38,7 +38,7 @@ getscores("2018", "8")
 import http.server
 import socketserver
 
-PORT = 8000
+PORT = int(os.environ.get("PORT", 5000))
 
 Handler = http.server.SimpleHTTPRequestHandler
 
