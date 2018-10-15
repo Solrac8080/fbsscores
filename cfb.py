@@ -21,6 +21,7 @@ def getrelevantscores(data):
         i=i+1
     linestowrite.append("last updated: \n"+time.strftime("%b %d %I:%M%p"))
     f.writelines(linestowrite)
+    print("writing index.html")
     f.close()
         
 
@@ -33,15 +34,3 @@ while(True):
     getscores("2018", "8")
     print('waiting 60 seconds...')
     time.sleep(59)
-
-
-import http.server
-import socketserver
-
-PORT = int(os.environ.get("PORT", 5000))
-
-Handler = http.server.SimpleHTTPRequestHandler
-
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
-    print("serving at port", PORT)
-    httpd.serve_forever()
