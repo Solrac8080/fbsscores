@@ -1,4 +1,4 @@
-import urllib.request, json, time, os
+import urllib.request, json, time, os, _thread
 def getrelevantscores(data):
     games=[]
     for i in range(len(data)):
