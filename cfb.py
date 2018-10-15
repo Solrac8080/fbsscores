@@ -30,7 +30,21 @@ def getscores(season, week):
     with urllib.request.urlopen("http://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?lang=en&region=us&calendartype=blacklist&limit=300&dates="+season+"&seasontype=2&week="+week+"&groups=80") as url:
         data = json.loads(url.read().decode())
         return getrelevantscores(data["events"])
-while(True):
-    getscores("2018", "8")
-    print('waiting 60 seconds...')
-    time.sleep(59)
+def aa():
+    while(True):
+        getscores("2018", "8")
+        print('waiting 60 seconds...')
+        time.sleep(59)
+
+_thread.start_new_thread( aa )
+import http.server
+import socketserver
+import os
+
+PORT = int(os.environ.get("PORT", 5000))
+
+Handler = http.server.SimpleHTTPRequestHandler
+
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    print("serving at port", PORT)
+    httpd.serve_forever()
