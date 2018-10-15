@@ -1,2 +1,2 @@
-web: python web.py $PORT
-web: python cfb.py
+worker: python cfb.py $PORT
+web: python web.py
