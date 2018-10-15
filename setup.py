@@ -1,12 +1,11 @@
 import urllib.request, json, time
-
 def getrelevantscores(data):
     games=[]
     for i in range(len(data)):
         if("groups" in data[i]["competitions"][0]):
             if(data[i]["competitions"][0]["groups"]["shortName"]=="Big 12" or data[i]["competitions"][0]["competitors"][0]["curatedRank"]["current"]<26 or data[i]["competitions"][0]["competitors"][1]["curatedRank"]["current"]<26):
                 games.append(data[i])
-    file="/home/carl/MEDIA/Lyrics/Skins/illustro/Scoreboard/3.txt"
+    file="3.txt"
     f=open(file,"w+")
     linestowrite=[]
     i=0
@@ -35,3 +34,14 @@ def getscores(season, week):
 #    print('waiting 60 seconds...')
 #    time.sleep(59)
 getscores("2018", "8")
+
+import http.server
+import socketserver
+
+PORT = 8000
+
+Handler = http.server.SimpleHTTPRequestHandler
+
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    print("serving at port", PORT)
+    httpd.serve_forever()
