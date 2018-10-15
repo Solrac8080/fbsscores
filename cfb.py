@@ -1,4 +1,5 @@
-import urllib.request, json, time, os, _thread
+import urllib.request, json, time, os, threading
+from threading import Thread
 def getrelevantscores(data):
     games=[]
     for i in range(len(data)):
@@ -36,7 +37,6 @@ def aa():
         print('waiting 60 seconds...')
         time.sleep(59)
 
-_thread.start_new_thread( aa )
 import http.server
 import socketserver
 import os
@@ -44,7 +44,12 @@ import os
 PORT = int(os.environ.get("PORT", 5000))
 
 Handler = http.server.SimpleHTTPRequestHandler
+def ab():
+    with socketserver.TCPServer(("", PORT), Handler) as httpd:
+        print("serving at port", PORT)
+        httpd.serve_forever()
 
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
-    print("serving at port", PORT)
-    httpd.serve_forever()
+if __name__ == '__main__':
+    Thread(target = aa).start()
+    Thread(target = ab).start()
+
