@@ -5,7 +5,7 @@ def getrelevantscores(data):
         if("groups" in data[i]["competitions"][0]):
             if(data[i]["competitions"][0]["groups"]["shortName"]=="Big 12" or data[i]["competitions"][0]["competitors"][0]["curatedRank"]["current"]<26 or data[i]["competitions"][0]["competitors"][1]["curatedRank"]["current"]<26):
                 games.append(data[i])
-    file="3.txt"
+    file="index.html"
     f=open(file,"w+")
     linestowrite=[]
     i=0
