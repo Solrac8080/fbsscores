@@ -9,18 +9,43 @@ def getrelevantscores(data):
     file="index.html"
     f=open(file,"w+")
     linestowrite=[]
+    linestowrite.append("<style>table {font-family: arial, sans-serif;font-size: 12px;border-collapse: collapse;width: auto;}td, th {border: 1px solid #dddddd;padding: 1px;}.table td,.table th{text-align:right;}.table td + td,.table th + th{text-align:left}</style>")
+    linestowrite.append("<table>")
     i=0
     while(i<(len(games))):
         home=games[i]["competitions"][0]["competitors"][0]
         away=games[i]["competitions"][0]["competitors"][1]
         if(home["curatedRank"]["current"]<26):
-            home["team"]["abbreviation"]=str(home["curatedRank"]["current"])+" "+home["team"]["abbreviation"]
+            home["curatedRank"]["actual"]=str(home["curatedRank"]["current"])
+        else:
+            home["curatedRank"]["actual"] = ""
         if(away["curatedRank"]["current"]<26):
-            away["team"]["abbreviation"]=str(away["curatedRank"]["current"])+" "+away["team"]["abbreviation"]
-            
-        linestowrite.append(home["team"]["abbreviation"]+":	"+home["score"]+"\n"+away["team"]["abbreviation"]+":	"+away["score"]+'\n\n')
+            away["curatedRank"]["actual"]=str(away["curatedRank"]["current"])
+        else:
+            away["curatedRank"]["actual"] = ""
+        #linestowrite.append(home["team"]["abbreviation"]+": "+home["score"]+away["team"]["abbreviation"]+": "+away["score"])
+        linestowrite.append("<tr>")
+        linestowrite.append("<td>"+games[i]["competitions"][0]["status"]["type"]["description"]+"</td>")
+        linestowrite.append("<td>"+games[i]["competitions"][0]["status"]["displayClock"]+"</td>")
+        linestowrite.append("<td></td>")
+        linestowrite.append("</tr>")
+        linestowrite.append("<tr>")
+        linestowrite.append("<td>"+home["curatedRank"]["actual"]+"</td>")
+        linestowrite.append("<td>"+home["team"]["location"]+"</td>")
+        linestowrite.append("<td>"+home["score"]+"</td>")
+        linestowrite.append("</tr>")
+        linestowrite.append("<tr>")
+        linestowrite.append("<td>"+away["curatedRank"]["actual"]+"</td>")
+        linestowrite.append("<td>"+away["team"]["location"]+"</td>")
+        linestowrite.append("<td>"+away["score"]+"</td>")
+        linestowrite.append("</tr>")
+        linestowrite.append("<tr>")
+        linestowrite.append("<td></td>")
+        linestowrite.append("<td></td>")
+        linestowrite.append("<td></td>")
+        linestowrite.append("</tr>")
         i=i+1
-    linestowrite.append("last updated: \n"+time.strftime("%b %d %I:%M%p"))
+    linestowrite.append("<div>last updated: \n"+time.strftime("%b %d %I:%M%p</div>"))
     f.writelines(linestowrite)
     print("writing index.html")
     f.close()
@@ -32,10 +57,12 @@ def getscores(season, week):
         data = json.loads(url.read().decode())
         return getrelevantscores(data["events"])
 def aa():
-    while(True):
-        getscores("2018", "8")
-        print('waiting 60 seconds...')
-        time.sleep(59)
+    getscores("2018", "8")
+    return True
+    #while(True):
+        #getscores("2018", "8")
+        #print('waiting 60 seconds...')
+        #time.sleep(59)
 
 import http.server
 import socketserver
