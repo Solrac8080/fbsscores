@@ -45,7 +45,7 @@ def getrelevantscores(data):
         linestowrite.append("<td></td>")
         linestowrite.append("</tr>")
         i=i+1
-    linestowrite.append("<div>last updated: \n"+time.strftime("%b %d %I:%M%p</div>"))
+    linestowrite.append("<div>last updated: \n"+time.strftime("%b %d %I:%M%p%Z</div>"))
     f.writelines(linestowrite)
     print("writing index.html")
     f.close()
