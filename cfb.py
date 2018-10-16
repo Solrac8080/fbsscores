@@ -57,12 +57,10 @@ def getscores(season, week):
         data = json.loads(url.read().decode())
         return getrelevantscores(data["events"])
 def aa():
-    getscores("2018", "8")
-    return True
-    #while(True):
-        #getscores("2018", "8")
-        #print('waiting 60 seconds...')
-        #time.sleep(59)
+    while(True):
+        getscores("2018", "8")
+        print('waiting 60 seconds...')
+        time.sleep(59)
 
 import http.server
 import socketserver
