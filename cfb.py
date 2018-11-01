@@ -58,7 +58,7 @@ def getscores(season, week):
         return getrelevantscores(data["events"])
 def aa():
     while(True):
-        getscores("2018", "9")
+        getscores("2018", "10")
         print('waiting 30 seconds...')
         time.sleep(29)
 
